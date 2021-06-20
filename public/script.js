@@ -1,3 +1,48 @@
+const createCardDiv = (attibutes) => {
+    const cardDiv = document.createElement('div');
+
+    cardDiv.classList.add('card');
+    Object.entries(attibutes).forEach(([key, value]) => {
+        cardDiv.setAttribute(key, value);
+    });
+    return cardDiv;
+}
+
+const createCard = (card, flipped) => {
+    const number = card.slice(0, -1);
+    const symbol = card.slice(-1);
+    const cardDiv = createCardDiv({ symbol, number });
+
+    cardDiv.innerHTML = `
+    <div class="container">
+        ${createCardFront(`
+            ${createCardCorner(number, symbol)}
+            <div class="symbols">
+                ${createCardSymbols(number, symbol)}
+            </div>
+            ${createCardCorner(number, symbol)}
+        `)}           
+        ${createCardBack()}
+    </div>
+    `;
+
+    // FLIPPING
+    cardDiv.addEventListener('click', () => {
+
+        if (cardDiv.classList.contains('flipped')) {
+            cardDiv.classList.remove('flipped');
+        } else {
+            cardDiv.classList.add('flipped');
+        }
+    });
+
+    if (flipped) {
+        cardDiv.classList.add('flipped');
+    }
+
+    return cardDiv;
+}
+
 const createCardCorner = (number, symbol) => {
     return `<div class="card-corner">
                 <div>${number}</div>
@@ -32,51 +77,6 @@ const createCardFront = (content) => {
 
 const createCardBack = () => {
     return `<div class="back"></div>`;
-}
-
-const createCardDiv = (attibutes) => {
-    const cardDiv = document.createElement('div');
-
-    cardDiv.classList.add('card');
-    Object.entries(attibutes).forEach(([key, value]) => {
-        cardDiv.setAttribute(key, value);
-    });
-    return cardDiv;
-}
-
-const createCard = (card, flipped) => {
-    const number = card.slice(0, -1);
-    const symbol = card.slice(-1);
-    const cardDiv = createCardDiv({ symbol, number });
-
-    cardDiv.innerHTML = `
-    <div class="container">
-        ${createCardFront(`
-            ${createCardCorner(number, symbol)}
-            <div class="symbols">
-                ${createCardSymbols(number, symbol)}
-            </div>
-            ${createCardCorner(number, symbol)}
-        `)}           
-        ${createCardBack()}
-    </div>
-    `;
-    
-    // FLIPPING
-    cardDiv.addEventListener('click', () => {
-        
-        if (cardDiv.classList.contains('flipped')) {
-            cardDiv.classList.remove('flipped');
-        } else {
-            cardDiv.classList.add('flipped');
-        }
-    });
-
-    if (flipped) {
-        cardDiv.classList.add('flipped');
-    }
-
-    return cardDiv;
 }
 
 const createDeck = async (selector, path, flipped) => {
