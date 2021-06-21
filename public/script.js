@@ -26,7 +26,7 @@ const createCard = (card, flipped) => {
     </div>
     `;
 
-    // FLIPPING
+    // FLIPPING update
     cardDiv.addEventListener('click', () => {
 
         if (cardDiv.classList.contains('flipped')) {
@@ -90,7 +90,7 @@ const onClickElementById = (id, callback) => {
 }
 
 window.addEventListener('load', function () {(async () => {
-        await createDeck('.deck.table', '/table', 3) //flipped on table
+        await createDeck('.deck.table', '/table', 2) //flipped on table
         const cardSize = 2; // payers hand
         await createDeck('.deck.hand', `/deck/${cardSize}`, cardSize)
     })();

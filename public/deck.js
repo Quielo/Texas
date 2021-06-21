@@ -14,14 +14,6 @@ class Deck {
             });
         });
     }
-    //
-    refillDeck() {
-        this.suits.forEach(suit => {
-            this.numbers.forEach(face => {
-                this.cards.push(face + suit);
-            });
-        });
-    }
 
     dispatchCards(size) {
         if (this.cards.length < size) {
@@ -69,11 +61,6 @@ class Hand {
     cards = [];
     constructor(deck, size) {
         this.cards = deck.dispatchCards(size);
-    }
-    //
-    bringbackCards(deck) {
-        deck.cards = deck.cards.concat(this.cards);
-        this.cards = [];
     }
 }
 
